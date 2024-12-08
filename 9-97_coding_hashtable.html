@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coding hash table</title>
+  </head>
+  <body>
+    <script>
+      class Node {
+        constructor(value) {
+          this.value = value;
+          this.next = null;
+        }
+      }
+
+      class HashTable {
+        // m = hash table size
+        constructor(size) {
+          this.size = size;
+          this.table = [];
+          // this.table = Array(size).fill([]);
+          this.table = Array(size).fill(null);
+        }
+
+        // parse string to numbers
+        parse(str) {
+          let result = 0;
+          for (let i = 0; i < str.length; i++) {
+            result += str.charCodeAt(i);
+          }
+          return result % this.size;
+        }
+
+        // division method
+        division(key) {
+          return typeof (key == "number") ? key % this.size : this.parse(key);
+        }
+
+        // multiplication method
+        multiplication(key) {
+          let parseKey = 0;
+          if (typeof key == "string") {
+            parseKey = this.parse(key);
+          } else {
+            parseKey = key;
+          }
+          let A = (Math.sqrt(5) - 1) / 2; // 根號5-1
+          console.log(Math.floor(this.size * ((parseKey * A) % 1)));
+          console.log(
+            Math.floor(this.size * ((parseKey * ((Math.sqrt(5) - 1) / 2)) % 1))
+          );
+          return Math.floor(this.size * ((parseKey * A) % 1));
+        }
+
+        linearProbing(offsetX) {
+          return offsetX;
+        }
+
+        openAddressing(key, value) {
+          let keyHash = this.division(key);
+          let index = keyHash;
+          let x = 1;
+
+          // linear probing to resolve collision
+          while (this.table[index] !== null && x < this.size) {
+            index = (keyHash + this.linearProbing(x)) % this.size;
+            x++;
+          }
+          if (this.table[index] === null) {
+            this.table[index] = { key, value };
+          } else {
+            console.error("Hash table overflow, can not insert new value");
+          }
+        }
+
+        set(key, value) {
+          let index = this.division(key);
+          if (this.table[index] !== null) {
+            this.openAddressing(key, value);
+          } else {
+            this.table[index] = { key, value };
+          }
+        }
+
+        get(key) {
+          let keyHash = this.division(key);
+          let index = keyHash;
+          let x = 1;
+
+          while (this.table[index] !== null && this.table[index].key !== key) {
+            index = (keyHash + this.linearProbing(x)) % this.size;
+            x++;
+            if (x > this.size) {
+              return null;
+            }
+          }
+          return this.table[index] ? this.table[index].value : null;
+          // deal with collision
+          // for (let i = 0; i < this.table[index].length; i++) {
+          //   if (this.table[index][i].key === key) {
+          //     return this.table[index][i];
+          //   }
+          // }
+
+          // if (this.table[index]) {
+          //   return this.table[index];
+          // } else {
+          //   return false;
+          // }
+        }
+        printAll() {
+          console.log(this.table);
+        }
+      }
+
+      let nuHashTable = new HashTable(10);
+
+      nuHashTable.set(56, "Kelly");
+      nuHashTable.set(656, "Adam");
+      nuHashTable.set(987, "Carter");
+      nuHashTable.set(1423, "Ronnie");
+      nuHashTable.set(688, "Cathy");
+      nuHashTable.set(731, "Emily");
+      nuHashTable.set(31, "Albert");
+      nuHashTable.set(126, "Berry");
+
+      // nuHashTable.set("hello", "Jonson");
+
+      console.log("Get '126':", nuHashTable.get(126));
+      console.log(nuHashTable.printAll());
+      // console.log(nuHashTable.get(656));
+      // console.log(nuHashTable.get(31));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>selection sort</title>
+  </head>
+  <body>
+    <script>
+      let arr = [7, 3, 5, 2, 8, 12, 10, 9, 1, 6];
+
+      function selectionSort(arr) {
+        let temp;
+        for (let current = 0; current < arr.length - 1; current++) {
+          let minIndex = current;
+          // find the smallest element in array
+          for (let j = current; j < arr.length; j++) {
+            if (arr[j] < arr[minIndex]) {
+              minIndex = j;
+            }
+          }
+          // swap the smallest element with the first element
+          temp = arr[current];
+          arr[current] = arr[minIndex];
+          arr[minIndex] = temp;
+        }
+        return arr;
+      }
+
+      function selectionSortImproved(arr) {
+        for (
+          let currentIndex = 0;
+          currentIndex < arr.length - 1;
+          currentIndex++
+        ) {
+          // 先 set minIndex to current 再從剩下的 array 中找 min element
+          let minIndex = currentIndex;
+          for (let j = currentIndex + 1; j < arr.length; j++) {
+            if (arr[j] < arr[minIndex]) {
+              minIndex = j;
+            }
+            console.log(
+              `arr[j]:${arr[j]} / arr[minIndex]:${arr[minIndex]} / arr[current]:${arr[currentIndex]}`
+            );
+          }
+          // do swap
+          if (minIndex !== currentIndex) {
+            [arr[currentIndex], arr[minIndex]] = [
+              arr[minIndex],
+              arr[currentIndex],
+            ];
+          }
+        }
+        return arr;
+      }
+
+      console.log(selectionSortImproved(arr));
+    </script>
+  </body>
+</html>

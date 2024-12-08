@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>linked list</title>
+  </head>
+  <body>
+    <script>
+      class Node {
+        constructor(value) {
+          this.value = value;
+          this.next = null;
+        }
+      }
+
+      class LinkedList {
+        constructor() {
+          this.head = null;
+          this.length = 0;
+        }
+
+        get(index) {
+          if (index > this.length || index < 0) {
+            return;
+          } else {
+            let currentNode = this.head;
+            for (let i = 1; i <= index; i++) {
+              currentNode = currentNode.next;
+            }
+            return currentNode.value;
+          }
+        }
+
+        insertAt(value, index) {
+          if (index > this.length || index < 0) {
+            return null;
+          }
+
+          if (index === 0) {
+            this.unshift(value);
+            return;
+          } else if (index === this.length) {
+            this.push(value);
+            return;
+          }
+
+          let newNode = new Node(value);
+          let currentNode = this.head;
+          for (let i = 1; i < index; i++) {
+            currentNode = currentNode.next;
+          }
+          newNode.next = currentNode.next;
+          currentNode.next = newNode;
+          this.length++;
+          return;
+        }
+
+        removeAt(index) {
+          if (index < 0 || index > this.length - 1) {
+            return null;
+          } else if (index === 0) {
+            this.shift();
+          } else if (index === this.length - 1) {
+            this.pop();
+          } else {
+            let currentNode = this.head;
+            for (let i = 1; i < index - 1; i++) {
+              currentNode = currentNode.next;
+            }
+            // the removed one
+            let temp = currentNode.next;
+            currentNode.next = temp.next;
+            this.length--;
+            return temp;
+          }
+        }
+
+        // add new node into linked list
+        push(value) {
+          let newNode = new Node(value);
+          /*
+          this.length === 0 || this.head === null
+          if there's no head then set newNode to head
+          else set
+          */
+          if (this.length === 0) {
+            this.head = newNode;
+          } else {
+            let currentNode = this.head;
+            // traverse whole linked list to find the last node
+            while (currentNode.next !== null) {
+              currentNode = currentNode.next;
+            }
+            currentNode.next = newNode;
+          }
+          this.length++; // the "this" in here means LinkedList
+        }
+
+        pop() {
+          if (!this.head) {
+            return null;
+          } else if (this.length === 1) {
+            // store this.head in temp
+            let temp = this.head;
+            this.head = null;
+            this.length = 0;
+            return temp;
+          } else {
+            let currentNode = this.head;
+            // traverse to the Node which previous of last Node
+            for (let i = 1; i < this.length - 1; i++) {
+              currentNode = currentNode.next;
+            }
+            // set the next value of new last Node to null
+            let temp = currentNode.next;
+            currentNode.next = null;
+            this.length--;
+            return temp;
+          }
+        }
+
+        shift() {
+          if (!this.head) {
+            return null;
+          } else {
+            let temp = this.head;
+            this.length === 1
+              ? (this.head = null)
+              : (this.head = this.head.next);
+            this.length--;
+            return temp;
+          }
+        }
+
+        unshift(value) {
+          if (!this.head) {
+            this.head = new Node(value);
+          } else {
+            let newNode = new Node(value);
+            let temp = this.head;
+            this.head = newNode;
+            this.head.next = temp;
+          }
+          this.length++;
+          return this.length;
+        }
+
+        printAll() {
+          if (this.length === 0) {
+            console.error("Theres no nodes in this linked list");
+            return;
+          }
+          let currentNode = this.head;
+          while (currentNode !== null) {
+            console.log(currentNode.value);
+            currentNode = currentNode.next;
+          }
+        }
+      }
+
+      let nameLinkedList = new LinkedList();
+      nameLinkedList.push("Ted");
+      nameLinkedList.push("Kelly");
+      nameLinkedList.push("Jen");
+      nameLinkedList.push("Alex");
+
+      // myLinkedList.printAll();
+    </script>
+  </body>
+</html>

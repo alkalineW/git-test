@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>array of arrays</title>
+  </head>
+  <body>
+    <script>
+      let arrs = [
+        [[["a", [[[["b", "c"]], ["d"]], ["e"], [["f", ["g"]], "h"]]]], ["i"]],
+      ];
+
+      // way 1 use .flat(Infinity)
+      function getArrayOfArraysWithFlat(arr) {
+        return arr.flat(Infinity);
+      }
+
+      // way 2 use recursion
+      function getArrayOfArraysWithRecursion(arr, result = []) {
+        for (let i = 0; i < arr.length; i++) {
+          if (Array.isArray(arr[i])) {
+            getArrayOfArraysWithRecursion(arr[i], result);
+          } else {
+            result.push(arr[i]);
+          }
+        }
+        return result;
+      }
+
+      console.log(getArrayOfArraysWithRecursion(arrs));
+    </script>
+  </body>
+</html>

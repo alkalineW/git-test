@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sliding window</title>
+  </head>
+  <body>
+    <script>
+      let arr = [2, 7, 3, 0, 6, 1, -5, -12, -11];
+      function getMaxSum(arraySet, windowSize) {
+        let copiedArray = arraySet.map((e) => e);
+        let lastWindowStart = arraySet.length - windowSize;
+        let sumValue = [];
+
+        // exclude size of window larger than arraySet.length
+        if (windowSize > arraySet.length) {
+          return null;
+        }
+
+        for (let i = 0; i <= lastWindowStart; i++) {
+          sumValue.push(
+            copiedArray.slice(i, i + windowSize).reduce((a, c) => a + c)
+          );
+        }
+        console.log(sumValue);
+        console.log(sumValue.sort((a, b) => a - b)[sumValue.length - 1]);
+        return sumValue.sort((a, b) => a - b)[sumValue.length - 1];
+      }
+
+      function maxSum(arr, size) {
+        let max_value = -Infinity;
+        if (size > arr.length) {
+          return false;
+        }
+
+        // i 代表 group index / j 代表每個 group 內子項目的 index
+        // ex: 第一個 window , size 設為 3
+        // group:0 [arr[0] , arr[1] , arr[2]]
+
+        // ex: 最後一個 window
+        // group:arr.length -size [arr[arr.length-3] , arr[arr.length-2] , arr[arr.length-1]]
+        for (let i = 0; i <= arr.length - size; i++) {
+          let value_of_window = 0;
+          for (let j = i; j < i + size; j++) {
+            value_of_window += arr[j];
+          }
+          if (value_of_window > max_value) {
+            max_value = value_of_window;
+          }
+        }
+        console.log(max_value);
+        return max_value;
+      }
+
+      function minValue(arr, size) {
+        let min_value = Infinity;
+        let result = [];
+
+        // exclude the condition that the window is larger than dataset
+        if (size > arr.length) {
+          console.error("window size can not larger than length of dataset");
+          return false;
+        }
+
+        for (let i = 0; i <= arr.length - size; i++) {
+          let sum = arr.slice(i, i + size).reduce((a, b) => a + b);
+          if (sum < min_value) {
+            min_value = sum;
+            result = [...arr.slice(i, i + size)];
+          }
+        }
+        return min_value;
+      }
+
+      getMaxSum([2, 7, 3, 0, 6, 1, -5, -12, -11], 3); // return 12
+
+      minValue([2, 7, 3, 0, 6, 1, -5, -12, -11], 3); // return -23
+    </script>
+  </body>
+</html>

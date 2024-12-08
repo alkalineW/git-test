@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>merge sort recap</title>
+  </head>
+  <body>
+    <script>
+      let arrData = [7, 3, 5, 2, 12, 8, 13, 128, 10, 9, 64, 1, 6, 4];
+
+      function mergeSort(arr) {
+        if (arr.length <= 1) {
+          return arr;
+        }
+        const indexOfMiddle = Math.floor(arr.length / 2);
+        const leftPart = arr.slice(0, indexOfMiddle);
+        const rightPart = arr.slice(indexOfMiddle);
+        return merge(mergeSort(leftPart), mergeSort(rightPart));
+      }
+
+      function merge(left, right) {
+        let result = [],
+          leftIndex = 0,
+          rightIndex = 0;
+        while (leftIndex < left.length && rightIndex < right.length) {
+          if (left[leftIndex] > right[rightIndex]) {
+            result.push(right[rightIndex]);
+            rightIndex++;
+          } else {
+            result.push(left[leftIndex]);
+            leftIndex++;
+          }
+        }
+        return result
+          .concat(left.slice(leftIndex))
+          .concat(right.slice(rightIndex));
+      }
+
+      console.log(mergeSort(arrData));
+    </script>
+  </body>
+</html>

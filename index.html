@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eloquent js</title>
+  </head>
+  <body>
+    <script>
+      function doAttack(nameOfMonster, attackAction) {
+        return function attackPoint(attackPoint) {
+          console.log(`${nameOfMonster} perform ${attackAction}`);
+          console.log(`the attack cause ${attackPoint} damage`);
+        };
+      }
+
+      const doggoAttack = doAttack("Giant Doggo", "super bite");
+      const orcAttack = doAttack("Orc", "smash");
+
+      doggoAttack("550");
+      orcAttack("200");
+
+      /*
+      a closure in js is a function that is defined inside another function
+      and retains access to the outer function has finished executing
+
+      closures are useful for encapsulating state and creating functions with persistent state
+      They are light weight and can be simpler for small, specific tasks
+      */
+
+      /*
+      Classes provide a more structured and scalable way to create object and manage state
+      They are better suited for complex structures and
+      when you need to create multiple instances with shared methods and properties
+      */
+
+      /*
+      Encapsulation:
+      Both closures and classes can encapsulate state.
+      Closures do this by creating a private scoop, while classes use properties.
+
+      Readability and Structure:
+      classes often provide better readability and structure,
+      especially for more complex cases or when working with multiple instances that share methods
+
+      Inheritance and polymorphism:
+      classes support inheritance and polymorphism,
+      which can be useful for creating more complex and reusable code
+
+      Perpormance:
+      Classes can sometimes be more performant than closures
+      because methods are shared across instances rather than recreated for each closure.
+
+      */
+
+      function findSolution(target) {
+        function find(current, history) {
+          if (current == target) {
+            return history;
+          } else if (current > target) {
+            return null;
+          } else {
+            return (
+              find(current + 5, `${history}+5`) ||
+              find(current * 3, `${history}*3`)
+            );
+          }
+        }
+        return find(1, "1"); // start from 1
+      }
+
+      //   console.log(findSolution(15));
+
+      // function printFarmInventory(cows, chickens, pigs) {
+      //   console.log(`${zeroPad(cows, 3)} Cows`);
+      //   console.log(`${zeroPad(chickens, 3)} Chickens`);
+      //   console.log(`${zeroPad(pigs, 4)} Pigs`);
+      // }
+
+      // function zeroPad(num, width) {
+      //   let string = String(num);
+      //   while (string.length < width) {
+      //     string = "0" + string;
+      //   }
+      //   return string;
+      // }
+
+      // printFarmInventory(2, 9, 55);
+
+      const numArray = [10, 20, 30];
+
+      // for (let i = 0; i < numArray.length; i++) {
+      // }
+
+      //--for .. in (object) for .. of (iteriable item)
+
+      // for (let value of numArray) {
+      //   value += 2; // will not change original array
+      //   console.log(`data:${value}`);
+      // }
+
+      const Harry = {
+        name: "Harry Boy",
+        age: 37,
+
+        // method on object
+        sayHi() {
+          console.log(`${this.name} says hi to you.`);
+        },
+      };
+
+      // console.log(Harry["age"], Harry.name);
+      // Harry.sayHi();
+
+      class Circle {
+        constructor(radius) {
+          this.radius = radius;
+        }
+        getArea(radius) {
+          return Math.floor(Math.pow(this.radius, 2) * Math.PI);
+        }
+      }
+
+      let c1 = {
+        radius: 5,
+        getArea() {
+          return Math.pow(this.radius, 2) * Math.PI;
+        },
+      };
+
+      let c2 = new Circle(5);
+      let c3 = new Circle(6);
+
+      //-compare algorithms
+      // recursive function
+      function getSumRecursive(n, result = 0) {
+        // let result = 0;
+        if (n === 0) {
+          return result;
+        } else {
+          return getSumRecursive(n - 1, (result += n));
+        }
+      }
+
+      // for loop
+      function getSumLoop(n) {
+        let result = 0;
+        for (let i = 0; i < n + 1; i++) {
+          result += i;
+        }
+        return result;
+      }
+
+      // use
+      function example(n) {
+        for (let i = 0; i < n * 3; i++) {
+          console.log("hi");
+        }
+        for (let i = 0; i < n; i++) {
+          for (let k = 0; k < n; k++) {
+            console.log("hi");
+          }
+        }
+        console.log("hi");
+        console.log("hi");
+        console.log("hi");
+        console.log("hi");
+      }
+
+      console.log(getSumLoop(4));
+      console.log(getSumRecursive(4));
+    </script>
+  </body>
+</html>

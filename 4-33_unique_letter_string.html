@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>find unique letter string in string</title>
+  </head>
+  <body>
+    <script>
+      // concept: sliding window technique
+      const stringA = "thisishowwedoahitnow";
+
+      function findUniqueString(str) {
+        let windowStart = 0,
+          maxLength = 0;
+        const charIndexMap = {};
+        let resultWord = "";
+        for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
+          const endLetter = str[windowEnd];
+          // 如果遇到重複的字母 就把window Left移動到current的下一個位置(建立新的window起始點)
+          if (
+            charIndexMap.hasOwnProperty(endLetter) &&
+            charIndexMap[endLetter] >= windowStart
+          ) {
+            windowStart = charIndexMap[endLetter] + 1;
+          }
+          // update the character's index
+          charIndexMap[endLetter] = windowEnd;
+          const currentLength = windowEnd - windowStart + 1;
+          if (currentLength > maxLength) {
+            maxLength = currentLength;
+            maxSubString = str.slice(windowStart, windowEnd + 1);
+          }
+        }
+        console.log(maxSubString);
+        return maxSubString;
+        console.log(charIndexMap);
+      }
+
+      function findUniqueStringB(str) {
+        let windowStart = 0,
+          maxLength = 0,
+          maxSubString = "";
+        const charIndexMap = {};
+        for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
+          const currentChar = str[windowEnd];
+          // meet the repeated character and ensure the index of current character is on the right of windowStart
+          if (
+            charIndexMap.hasOwnProperty(currentChar) &&
+            charIndexMap[currentChar] >= windowStart
+          ) {
+            // move windowStart to the right of the repeated character(avoid the repeated part)
+            windowStart = charIndexMap[currentChar] + 1;
+          }
+          console.log(charIndexMap);
+          console.log("windowStart:" + windowStart);
+          // update the index of all characters
+          charIndexMap[currentChar] = windowEnd;
+          let lengthOfCurrent = windowEnd - windowStart + 1;
+          if (lengthOfCurrent > maxLength) {
+            maxLength = lengthOfCurrent;
+            maxSubString = str.slice(windowStart, windowEnd + 1);
+          }
+        }
+        console.log(`maxLength: ${maxLength} / maxSubstring: ${maxSubString}`);
+        return `maxLength:${maxLength} / maxSubstring:${maxSubString}`;
+      }
+      findUniqueStringB("thisishowwedoit"); // expect 6
+    </script>
+  </body>
+</html>

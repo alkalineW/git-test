@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>binary search</title>
+  </head>
+  <body>
+    <p id="binary_result"></p>
+    <script>
+      let numbers = [
+        33, 99, 97, 3, 87, 72, 108, 61, 48, 38, 18, 89, 45, 85, 17, 13, 70, 80,
+        88, 92, 65, 23, 55, 1, 63, 75, 79, 95, 112, 14, 155, 30, 31, 32, 86, 51,
+        29, 11, 77, 26, 62, 0, 86, 21, 4, 73, 23, 93, 91, 68, 8, 36, 66, 103,
+        179, 15, 59, 53, 76, 42, 64, 81, 47, 27, 69, 12, 2, 213, 49, 74, 34, 40,
+        28, 37, 83, 10, 95, 7, 22, 24, 19,
+      ];
+      let sortedNumbers = numbers.map((a) => a).sort((a, b) => a - b);
+
+      let newData = [
+        0, 1, 2, 3, 4, 7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 19, 21, 22, 23, 23,
+        24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 40, 42, 45, 47, 48,
+        49, 51, 53, 55, 59, 61, 62, 63, 64, 65, 66, 68, 69, 70, 72, 73, 74, 75,
+        76, 77, 79, 80, 81, 83, 85, 86, 86, 87, 88, 89, 91, 92, 93, 95, 95, 97,
+        99, 103, 108, 112, 155, 179, 213,
+      ];
+
+      function binarySearch(arraySet, n) {
+        let min = 0,
+          max = arraySet.length - 1;
+        let middle;
+
+        while (min <= max) {
+          middle = min + Math.floor((max - min) / 2);
+          console.log("middle:" + middle);
+          console.log(`min:${min} max:${max} middle:${middle}`);
+
+          if (arraySet[middle] == n) {
+            console.log(`find ${n}  with index ${middle}`);
+            return middle;
+          }
+
+          if (arraySet[middle] > n) {
+            // pick left sub-part, move index of min to middle+1
+            max = middle - 1;
+          } else {
+            min = middle + 1;
+          }
+        }
+        console.log(`can not find ${n}`);
+        return -1;
+      }
+
+      console.log(binarySearch(newData, 30));
+      console.log(binarySearch(newData, 0));
+    </script>
+  </body>
+</html>

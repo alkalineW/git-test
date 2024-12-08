@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>letter frequency</title>
+  </head>
+  <body>
+    <script>
+      let str1 = "aabbcc";
+      let str2 = "cbabac";
+
+      function checkFrequency(str1, str2) {
+        let arr1 = str1.split(""),
+          arr2 = str2.split("");
+        if (str1.length !== str2.length) {
+          return false;
+        }
+        // ensure str1 & str2 has same length then..
+        let counter1 = {},
+          counter2 = {};
+
+        for (let i = 0; i < arr1.length; i++) {
+          if (!counter1[arr1[i]]) {
+            counter1[arr1[i]] = 1;
+          } else {
+            counter1[arr1[i]]++;
+          }
+
+          if (!counter2[arr2[i]]) {
+            counter2[arr2[i]] = 1;
+          } else {
+            counter2[arr2[i]]++;
+          }
+        }
+        console.log(counter1, counter2);
+        for (let property in counter1) {
+          // do not have same property => return false
+          if (!counter2.property) {
+            console.log("Do not have this property");
+            return false;
+          }
+          // have same property but different value => return false
+          if (counter2[property] !== counter1[property]) {
+            console.log("Have this property but different value");
+            return false;
+          }
+          console.log("great! seems two string are combine with same letters");
+          return true;
+        }
+      }
+    </script>
+  </body>
+</html>

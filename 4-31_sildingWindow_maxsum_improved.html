@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sliding window</title>
+  </head>
+  <body>
+    <script>
+      let arr = [2, 7, 3, 0, -4, 6, 1, -5, -12, -11, 9];
+      // sliding window 會有 arr.length -size +1 組
+      function maxSum(arr, size) {
+        if (size > arr.length) {
+          console.error("size is larger than arr.length");
+          return null;
+        }
+
+        let maxValue = 0;
+        // 取得第一組sum value of window
+        for (let i = 0; i < size; i++) {
+          maxValue += arr[i];
+        }
+        console.log(`window:0 sum:${maxValue}`);
+
+        let tempValue = maxValue;
+        // 往下ㄧ格到下一組 sliding window 並減掉上一個 sliding window 的 first value
+        for (let j = size; j < arr.length; j++) {
+          tempValue = tempValue + arr[j] - arr[j - size];
+          console.log(`window:${j - size + 1} sum:${tempValue}`);
+          if (tempValue > maxValue) {
+            maxValue = tempValue;
+          }
+        }
+        console.log(maxValue);
+        return maxValue;
+      }
+
+      // maxSum(arr, 3);
+
+      function minValue(arr, size) {
+        if (size > arr.length) {
+          return null;
+        }
+        let minValue = 0;
+        for (let i = 0; i < size; i++) {
+          minValue += arr[i];
+        }
+        console.log(`window0: sum:${minValue}`);
+
+        let tempValue = minValue;
+        // j 代表下一格的index 加下ㄧ格 減上ㄧ格
+        for (let j = size; j < arr.length; j++) {
+          tempValue = tempValue + arr[j] - arr[j - size];
+          console.log(`window${j - size + 1}: sum:${tempValue}`);
+          if (minValue > tempValue) {
+            minValue = tempValue;
+          }
+        }
+        console.log(minValue);
+        return minValue;
+      }
+
+      // minValue(arr, 7);
+
+      function getMaxSum(arr, size) {
+        let maxSum = 0;
+
+        if (size > arr.length) {
+          return false;
+        }
+        // get the sum of first window
+        let currentSum = arr.slice(0, size).reduce((a, b) => a + b);
+
+        for (let i = size; i < arr.length; i++) {
+          console.log(`${currentSum} - ${arr[i - size]}+ ${arr[i]} = `);
+          currentSum = currentSum - arr[i - size] + arr[i];
+          if (currentSum > maxSum) {
+            maxSum = currentSum;
+          }
+        }
+        console.log(maxSum);
+        return maxSum;
+      }
+
+      //-----
+      function getMinValue(arr, windowSize) {
+        let minSum = Infinity;
+        if (windowSize > arr.length) {
+          return false;
+        }
+        // get sum of first window
+        let currentSum = arr.slice(0, windowSize).reduce((a, b) => a + b);
+        for (let i = windowSize; i < arr.length; i++) {
+          currentSum = currentSum - arr[i - windowSize] + arr[i];
+          if (currentSum < minSum) {
+            minSum = currentSum;
+          }
+        }
+        console.log(minSum);
+        return minSum;
+      }
+      //---
+
+      getMinValue([2, 7, 3, 0, 6, 1, -5, -12, -11], 3);
+      getMaxSum([2, 7, 3, 0, 6, 1, -5, -12, -11], 3);
+      // minValue([2, 7, 3, 0, 6, 1, -5, -12, -11], 3); // return -23
+    </script>
+  </body>
+</html>

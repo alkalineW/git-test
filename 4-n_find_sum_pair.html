@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>find sum pair in an array</title>
+  </head>
+  <body>
+    <script>
+      // concept: two pointer for finding sum of pair in an array
+      const arr = [2, 3, 5, 8, 9, 10, 11];
+      function isPairSum(arr, targetNumber) {
+        let pointerLeft = 0,
+          pointerRight = arr.length - 1;
+        while (pointerLeft < pointerRight) {
+          console.log("pointerLeft:" + pointerLeft);
+          console.log("pointerRight:" + pointerRight);
+          // 假設 arr[pointerLeft] + arr[pointerRight] 恰為 targetNumber
+          if (arr[pointerLeft] + arr[pointerRight] === targetNumber) {
+            console.log(
+              `find pair ${arr[pointerLeft]} and ${arr[pointerRight]} matches ${targetNumber}`
+            );
+            return true;
+          }
+          // 假設 arr[pointerLeft] + arr[pointerRight] 比 targetNumber 小(不足)
+          // 表示要往更大的數加 所以 pointerLeft 往右移動
+          else if (arr[pointerLeft] + arr[pointerRight] < targetNumber) {
+            pointerLeft++;
+          }
+          // 假設 arr[pointerLeft] + arr[pointerRight] 比 targetNumber 大(超過)
+          // 表示要往更小的數加 所以 pointerRight 往左移動
+          else {
+            pointerRight--;
+          }
+        }
+        console.log("there's no pair which sum matches target value in array");
+        return false;
+      }
+      // must sorted array to ensure the number in array is ascending
+      arr.sort((a, b) => a - b);
+      isPairSum(arr, 19);
+    </script>
+  </body>
+</html>

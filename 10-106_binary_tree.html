@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>binary tree</title>
+  </head>
+  <body>
+    <script>
+      // https://youtu.be/9dvA1etTUfc?si=KqQIBxjYXIimVi_a&t=425
+      class Node {
+        constructor(value) {
+          this.value = value;
+          this.left = null;
+          this.right = null;
+        }
+      }
+
+      class BinarySearchTree {
+        constructor() {
+          this.root = null;
+        }
+        insert(value) {
+          let newNode = new Node(value);
+          if (!this.root) {
+            this.root = newNode;
+            return this; // no need to traverse the tree to find the correct location
+          }
+
+          let tree = this.root;
+          // 因為tree不是linear data structure 所以不能靠使用 tree length 這種方法來loop
+          while (true) {
+            // 當 inserted value 比 traversal/current node value 小，
+            // 則1.檢查current node是否有left child 無的話就讓 inserted 為 current node 的left child
+            // 2. 若有，則move to left child of current node 繼續比較
+            if (value < tree.value) {
+              if (!tree.left) {
+                tree.left = newNode;
+                return this;
+              }
+              tree = tree.left;
+            } else {
+              if (!tree.right) {
+                tree.right = newNode;
+                return this;
+              }
+              tree = tree.right;
+            }
+          }
+          return this;
+        }
+        lookup(value) {
+          if (!this.root) {
+            return false;
+          }
+        }
+        delete(value) {}
+      }
+
+      const tree = new BinarySearchTree();
+
+      tree.insert(45);
+      tree.insert(23);
+      tree.insert(12);
+      tree.insert(36);
+      tree.insert(8);
+      tree.insert(65);
+
+      console.log(tree);
+    </script>
+  </body>
+</html>

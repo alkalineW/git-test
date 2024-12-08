@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quick sort</title>
+  </head>
+  <body>
+    <div id="result"></div>
+    <script>
+      let arrData = [7, 3, 5, 2, 12, 8, 13, 128, 10, 9, 64, 1, 6, 4];
+
+      let arrDataTwo = [7, 3, 5, 2, 12, 8, 13, 128, 10, 9, 64, 1, 6, 4];
+
+      // when calling quickSort first time, passing 0 & array.length-1 as parameters
+      function quickSort(low, high) {
+        if (low < high) {
+          let indexOfPivot = partition(low, high);
+          quickSort(low, indexOfPivot - 1);
+          quickSort(indexOfPivot + 1, high);
+        }
+      }
+
+      function partition(low, high) {
+        const pivot = arrData[high];
+        let startIndex = low - 1;
+        for (let currentIndex = low; currentIndex < high; currentIndex++) {
+          if (arrData[currentIndex] <= pivot) {
+            startIndex++;
+            // exchange arrData[currentIndex] with arrData[startIndex]
+            let temp = arrData[currentIndex];
+            arrData[currentIndex] = arrData[startIndex];
+            arrData[startIndex] = temp;
+          }
+        }
+        // insert pivot to correct position (startIndex+1 aka. right position to startIndex)
+        let temp = arrData[startIndex + 1];
+        arrData[startIndex + 1] = arrData[high];
+        arrData[high] = temp;
+
+        return startIndex + 1;
+      }
+
+      // quickSort(0, arrData.length - 1);
+
+      // recap selection sort
+      function selectionSort(arr) {
+        for (
+          let currentIndex = 0;
+          currentIndex < arr.length - 1;
+          currentIndex++
+        ) {
+          let minIndex = currentIndex;
+          for (
+            let comparedIndex = minIndex + 1;
+            comparedIndex < arr.length;
+            comparedIndex++
+          ) {
+            // pick out the smallest value in array / update the minIndex
+            if (arr[comparedIndex] < arr[minIndex]) {
+              minIndex = comparedIndex;
+            }
+          }
+          // swap arr[currentIndex] with arr[minIndex]
+          if (currentIndex !== minIndex) {
+            [arr[currentIndex], arr[minIndex]] = [
+              arr[minIndex],
+              arr[currentIndex],
+            ];
+          }
+        }
+      }
+
+      selectionSort(arrDataTwo);
+
+      document.getElementById("result").innerHTML = arrDataTwo;
+
+      // const arrayA = [
+      //   1, 6, 3, 9, 17, 22, 18, 7, 5, 2, 21, 12, 37, 33, 8, 109, 77, 23, 14, 11,
+      // ];
+      // const arrayB = [
+      //   2, 5, 8, 12, 75, 17, 23, 14, 36, 33, 7, 17, 9, 77, 56, 62, 1, 102, 3,
+      // ];
+
+      // console.log(arrayA.sort((a, b) => a - b));
+      // console.log(arrayB.sort((a, b) => a - b));
+
+      function getIntersectionLinear(arrA, arrB) {
+        const result = [];
+        for (let i = 0; i < arrA.length; i++) {
+          for (let j = 0; j < arrB.length; j++) {
+            if (arrA[i] === arrB[j]) {
+              result.push(arrA[i]);
+            }
+          }
+        }
+        return result;
+      }
+
+      // console.log(getIntersectionLinear(arrayA, arrayB));
+
+      const arrayA = [
+        1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 14, 17, 18, 21, 22, 23, 33, 37, 77, 109,
+      ];
+      const arrayB = [
+        1, 2, 3, 5, 7, 8, 9, 12, 14, 17, 17, 23, 33, 36, 56, 62, 75, 77, 102,
+      ];
+
+      function binartSearch(arr, target) {
+        let min = 0,
+          max = arr.length - 1;
+        while (min <= max) {
+          let mid = Math.floor((min + max) / 2);
+          if (arr[mid] === target) {
+            return true;
+          } else if (arr[mid] < target) {
+            min = mid + 1;
+          } else {
+            max = mid - 1;
+          }
+        }
+        return false;
+      }
+
+      function getIntersectionBinary(arrA, arrB) {
+        let intersection = [];
+        for (let i = 0; i < arrA.length; i++) {
+          console.log(i);
+          if (binartSearch(arrB, arrA[i])) {
+            intersection.push(arrA[i]);
+          }
+        }
+        return intersection;
+      }
+
+      const array1 = [
+        1, 6, 3, 9, 17, 22, 18, 7, 5, 2, 21, 12, 37, 33, 8, 109, 77, 23, 14, 11,
+      ];
+      const array2 = [
+        2, 5, 8, 12, 75, 17, 23, 14, 36, 33, 7, 9, 77, 56, 62, 1, 102, 3,
+      ];
+
+      function getIntersectionCounter(arrA, arrB) {
+        const result = [],
+          dataset = arrA.concat(arrB),
+          counter = {};
+        for (let i = 0; i < dataset.length; i++) {
+          if (!counter[dataset[i]]) {
+            counter[dataset[i]] = 1;
+          } else {
+            counter[dataset[i]]++;
+          }
+        }
+        // loop through counter object
+        for (property in counter) {
+          if (counter[property] > 1) {
+            result.push(Number(property));
+          }
+        }
+        return result;
+      }
+
+      // getIntersectionCounter(array1, array2);
+      // console.log(getIntersectionCounter(array1, array2));
+
+      // console.log(getIntersectionLinear(array1, array2));
+
+      // console.log(getIntersectionBinary(arrayA, arrayB));
+
+      let unsortedArr = [4, 8, 3, 6, 10, 5, 7, 1, 18, 12, 13, 9, 2, 11];
+
+      function bubbleSort(arr) {
+        for (let i = arr.length; i > 0; i--) {
+          for (let j = 0; j < i; j++) {
+            let temp = null;
+            if (arr[j + 1] < arr[j]) {
+              temp = arr[j + 1];
+              arr[j + 1] = arr[j];
+              arr[j] = temp;
+            }
+          }
+        }
+        console.log(arr);
+      }
+
+      // bubbleSort(unsortedArr);
+
+      // function insertationSort(arr) {
+      //   for (let i = 1; i < arr.length; i++) {
+      //     let currentIndex = i;
+
+      //     while (
+      //       currentIndex > 0 &&
+      //       arr[currentIndex - 1] > arr[currentIndex]
+      //     ) {
+      //       // do swap
+      //       [arr[currentIndex - 1], arr[currentIndex]] = [
+      //         arr[currentIndex],
+      //         arr[currentIndex - 1],
+      //       ];
+      //       currentIndex--;
+      //     }
+      //   }
+      //   return arr;
+      // }
+
+      // insertationSort(unsortedArr);
+
+      // function selectionSortRecap(arr) {
+      //   for (let i = 0; i < arr.length; i++) {
+      //     let startIndex = i;
+      //     // pick out the smallest value
+      //     for (let j = startIndex + 1; j < arr.length; j++) {
+      //       // if the smallest value is smaller than arr[startIndex], do swap
+      //       if (arr[j] < arr[startIndex]) {
+      //         [arr[j], arr[startIndex]] = [arr[startIndex], arr[j]];
+      //       }
+      //     }
+      //   }
+      //   return arr;
+      // }
+
+      // console.log(selectionSortRecap(unsortedArr));
+
+      function mergeSort(arr) {
+        if (arr.length <= 1) {
+          return arr;
+        }
+        const middleIndex = Math.floor(arr.length / 2);
+        const leftPart = arr.slice(0, middleIndex);
+        const rightPart = arr.slice(middleIndex);
+
+        return merge(mergeSort(leftPart), mergeSort(rightPart));
+      }
+
+      function merge(leftPart, rightPart) {
+        let leftStart = 0,
+          rightStart = 0;
+        const result = [];
+
+        while (leftStart < leftPart.length && rightStart < rightPart.length) {
+          if (leftPart[leftStart] < rightPart[rightStart]) {
+            result.push(leftPart[leftStart]);
+            leftStart++;
+          } else {
+            result.push(rightPart[rightStart]);
+            rightStart++;
+          }
+        }
+
+        return result
+          .concat(leftPart.slice(leftStart))
+          .concat(rightPart.slice(rightStart));
+      }
+
+      console.log(mergeSort(unsortedArr));
+
+      // after 5785
+      // A5791
+      // A5790
+      // A5787
+      // A5786
+    </script>
+  </body>
+</html>

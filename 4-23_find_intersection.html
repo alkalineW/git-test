@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>linear search</title>
+  </head>
+  <body>
+    <p id="linear_result"></p>
+    <script>
+      let numbers = [15, 3, 6, 8, 24, 16];
+      let numbers2 = [11, 3, 9, 6, 15, 8];
+
+      function intersection(arraySet, arraySet2) {
+        let result = [];
+        let steps = 0;
+        for (let k = 0; k < arraySet.length; k++) {
+          for (let i = 0; i < arraySet2.length; i++) {
+            steps++;
+            if (arraySet[k] === arraySet2[i]) {
+              result.push(arraySet2[i]);
+            }
+          }
+        }
+        console.log(`it takes ${steps} steps`); // O(n*n)
+        return result;
+      }
+      // console.log(intersection(numbers, numbers2));
+      function intersectionWithCounter(arr1, arr2) {
+        let result = [],
+          fullArray = arr1.concat(arr2),
+          counter = {};
+
+        for (let i = 0; i < fullArray.length; i++) {
+          if (counter[fullArray[i]]) {
+            counter[fullArray[i]]++;
+          } else {
+            counter[fullArray[i]] = 1;
+          }
+        }
+
+        // loop over the counter
+        for (let property in counter) {
+          if (counter[property] >= 2) {
+            result.push(property * 1);
+          }
+        }
+        return result;
+      }
+
+      intersectionWithCounter(numbers, numbers2);
+    </script>
+  </body>
+</html>

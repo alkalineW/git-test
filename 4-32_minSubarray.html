@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>min subarray</title>
+  </head>
+  <body>
+    <script>
+      // concept: dynamic length of sliding window
+      let arr1 = [9, 8, 1, 4, 9, 5, 1, 2];
+      function minSubArray(arr, targetValue) {
+        let minArrayLength = Infinity,
+          windowStart = 0, // left pointer of the sliding window
+          tempValue = 0; // sum of the current window
+        const overResult = [];
+        let currentWindow = [];
+        for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
+          currentWindow.push(arr[windowEnd]);
+          tempValue += arr[windowEnd];
+          // shrink window as small as possible while sum of window is greater than target
+          while (tempValue >= targetValue) {
+            if (minArrayLength > windowEnd - windowStart + 1) {
+              minArrayLength = windowEnd - windowStart + 1;
+            }
+            overResult.push([...currentWindow]);
+            tempValue -= arr[windowStart]; // remove the value of leftmost element
+            currentWindow.shift(); // remove the leftmost element
+            windowStart++;
+          }
+        }
+        console.log(overResult);
+        console.log(minArrayLength);
+        return minArrayLength === Infinity ? 0 : minArrayLength;
+      }
+      minSubArray([8, 1, 6, 15, 3, 16, 5, 7, 14, 30, 12], 60);
+      minSubArray(arr1, 14);
+    </script>
+  </body>
+</html>

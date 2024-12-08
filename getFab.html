@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eloquent js</title>
+  </head>
+  <body>
+    <script>
+      // function calcFibonacci(n) {
+      //   let result = 0;
+      //   if (n === 2 || n === 1) {
+      //     return result + 1;
+      //   }
+      //   result = calcFibonacci(n - 1) + calcFibonacci(n - 2);
+      //   return result;
+      // }
+      function calcFibonacci(n, memo = {}) {
+        if (n === 1 || n === 2) {
+          return 1;
+        }
+        if (memo[n]) {
+          return memo[n];
+        }
+        memo[n] = calcFibonacci(n - 1, memo) + calcFibonacci(n - 2, memo);
+        return memo[n];
+      }
+
+      console.log(calcFibonacci(18));
+
+      /*
+            a closure in js is a function that is defined inside another function
+            and retains access to the outer function has finished executing
+
+            closures are useful for encapsulating state and creating functions with persistent state
+            They are light weight and can be simpler for small, specific tasks
+            */
+
+      /*
+            Classes provide a more structured and scalable way to create object and manage state
+            They are better suited for complex structures and
+            when you need to create multiple instances with shared methods and properties
+            */
+
+      /*
+            Encapsulation:
+            Both closures and classes can encapsulate state.
+            Closures do this by creating a private scoop, while classes use properties.
+
+            Readability and Structure:
+            classes often provide better readability and structure,
+            especially for more complex cases or when working with multiple instances that share methods
+
+            Inheritance and polymorphism:
+            classes support inheritance and polymorphism,
+            which can be useful for creating more complex and reusable code
+
+            Perpormance:
+            Classes can sometimes be more performant than closures
+            because methods are shared across instances rather than recreated for each closure.
+
+            */
+
+      // function printFarmInventory(cows, chickens, pigs) {
+      //   console.log(`${zeroPad(cows, 3)} Cows`);
+      //   console.log(`${zeroPad(chickens, 3)} Chickens`);
+      //   console.log(`${zeroPad(pigs, 4)} Pigs`);
+      // }
+
+      // function zeroPad(num, width) {
+      //   let string = String(num);
+      //   while (string.length < width) {
+      //     string = "0" + string;
+      //   }
+      //   return string;
+      // }
+
+      // printFarmInventory(2, 9, 55);
+    </script>
+  </body>
+</html>

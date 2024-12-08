@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>linear search</title>
+  </head>
+  <body>
+    <p id="linear_result"></p>
+    <script>
+      let str1 = "tacocat";
+
+      // use the pointer skill
+      function checkPalindrome(str) {
+        let arrayOfStr = str.split("");
+        let left = 0,
+          right = arrayOfStr.length - 1;
+        while (left < right) {
+          console.log(arrayOfStr[left], arrayOfStr[right]);
+          console.log(`left: ${left} / right: ${right}`);
+          if (arrayOfStr[left] === arrayOfStr[right]) {
+            left++;
+            right--;
+          } else {
+            return false;
+          }
+        }
+        console.log("this word is palindrome");
+        return true;
+      }
+    </script>
+  </body>
+</html>

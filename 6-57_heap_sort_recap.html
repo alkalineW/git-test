@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>heap sort</title>
+  </head>
+  <body>
+    <script>
+      let arrData = [7, 3, 5, 2, 12, 8, 13, 128, 10, 9, 64, 1, 6, 4];
+      let heapSize;
+
+      function buildMaxHeap() {
+        heapSize = arrData.length - 1; // last index of arrData
+        for (let i = Math.floor(heapSize / 2); i >= 0; i--) {
+          maxHeapify(i);
+        }
+      }
+
+      // focus on parent / left child / right child
+      // recursion
+      // start from 0
+      // will generate maxHeap at the end
+      function maxHeapify(i) {
+        const indexOfleft = i * 2 + 1;
+        const indexOfRight = i * 2 + 2;
+        let largest = i;
+        if (
+          indexOfleft <= heapSize &&
+          arrData[indexOfleft] > arrData[largest]
+        ) {
+          largest = indexOfleft;
+        }
+        if (
+          indexOfRight <= heapSize &&
+          arrData[indexOfRight] > arrData[largest]
+        ) {
+          largest = indexOfRight;
+        }
+        if (largest !== i) {
+          let temp = arrData[i];
+          arrData[i] = arrData[largest];
+          arrData[largest] = temp;
+          maxHeapify(largest);
+        }
+      }
+
+      // hint
+      // call buildMaxHeap
+      // swap last item with root then move out last item
+      // heapSize--
+      // maxHeapify
+      function heapSort() {
+        buildMaxHeap(); // turn orginal heap into max heap
+        for (let i = heapSize; i > 0; i--) {
+          let temp = arrData[0];
+          arrData[0] = arrData[i];
+          arrData[i] = temp;
+          heapSize--;
+          maxHeapify(0);
+        }
+      }
+
+      // heapSort();
+
+      function maxHeapifyRecap(i) {
+        const indexOfLeft = i * 2 + 1;
+        const indexOfRight = i * 2 + 2;
+        let largest = i;
+        if (
+          indexOfLeft <= heapSize &&
+          arrData[indexOfLeft] > arrData[largest]
+        ) {
+          largest = indexOfLeft;
+        }
+        if (
+          indexOfRight <= heapSize &&
+          arrData[indexOfRight] > arrData[largest]
+        ) {
+          largest = indexOfRight;
+        }
+
+        // if largest not equal to i, do swap
+        if (largest !== i) {
+          let temp = arrData[i];
+          arrData[i] = arrData[largest];
+          arrData[largest] = temp;
+          maxHeapifyRecap(largest);
+        }
+      }
+
+      function heapSortRecap() {
+        buildMaxHeapRecap();
+        for (let i = heapSize; i > 0; i--) {
+          // exchange arr[0] with arr[i]
+          let temp = arrData[0];
+          arrData[0] = arrData[i];
+          arrData[i] = temp;
+          heapSize--;
+          maxHeapifyRecap(0);
+        }
+      }
+
+      // build first maxHeap
+      function buildMaxHeapRecap() {
+        heapSize = arrData.length - 1;
+        for (let i = Math.floor(heapSize / 2); i >= 0; i--) {
+          maxHeapifyRecap(i);
+        }
+      }
+
+      heapSortRecap();
+
+      console.log(arrData);
+    </script>
+  </body>
+</html>

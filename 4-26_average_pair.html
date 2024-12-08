@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>letter frequency</title>
+  </head>
+  <body>
+    <script>
+      let arr1 = [-11, 0, 1, 2, 3, 9, 14, 17, 21];
+
+      function averagePair(arrayData, averageValue) {
+        let result = [];
+        // declare pointer
+        let left = 0,
+          right = arrayData.length - 1;
+
+        while (left < right) {
+          console.log(`left:${left} / right:${right}`);
+          let temp_average = (arrayData[left] + arrayData[right]) / 2;
+          if (temp_average > averageValue) {
+            right--;
+          } else if (temp_average == averageValue) {
+            result.push([arrayData[left], arrayData[right]]);
+            left++;
+            right--;
+          } else {
+            left++;
+          }
+        }
+        console.log(result);
+        return result;
+      }
+
+      averagePair(arr1, 1.5);
+
+      // function findAveragePair(arrayData, avg) {
+      //   let counter = {},
+      //     result = [];
+      //   let steps = 0;
+
+      //   // 第一個元素 loop 到倒數第二個就停，第二個元素loop到最後一項才停
+      //   // 才能完成 "倒數第二+最後一項"
+      //   for (let i = 0; i < arrayData.length - 1; i++) {
+      //     for (let k = i + 1; k < arrayData.length; k++) {
+      //       if ((arrayData[i] + arrayData[k]) / 2 == avg) {
+      //         result.push([arrayData[i], arrayData[k]]);
+      //       }
+      //       steps++;
+      //     }
+      //   }
+      //   console.log(result);
+      //   console.log(steps); // 36次 (相當於C9取2的結果)
+      //   return result;
+      // }
+
+      function findAveragePair(arr, avgValue) {
+        const result = [];
+        let left = 0,
+          right = arr.length - 1;
+        while (left < right) {
+          let tempAvg = arr[left] + arr[right] / 2;
+          if (tempAvg > avgValue) {
+            right--;
+          } else if (tempAvg == avgValue) {
+            result.push([arr[left], arr[right]]);
+            left++;
+            right--;
+          } else {
+            left++;
+          }
+        }
+        return result;
+      }
+
+      // console.log(findAveragePair(arr1, 1.5));
+    </script>
+  </body>
+</html>

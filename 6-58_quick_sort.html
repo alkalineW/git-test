@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quick sort</title>
+  </head>
+  <body>
+    <script>
+      let arrData = [7, 3, 5, 2, 12, 8, 13, 128, 10, 9, 64, 1, 6, 4];
+
+      // when calling quickSort first time, passing 0 & array.length-1 as parameters
+      function quickSort(low, high) {
+        if (low < high) {
+          indexOfPivot = partition(low, high);
+          // once get the indexOfPivot, can invoke partition recursivly
+          quickSort(low, indexOfPivot - 1);
+          quickSort(indexOfPivot + 1, high);
+        }
+      }
+
+      function partition(low, high) {
+        const pivot = arrData[high];
+        let startIndex = low - 1;
+        for (let currentIndex = low; currentIndex < high; currentIndex++) {
+          // move the value which less than pivot to left part
+          if (arrData[currentIndex] <= pivot) {
+            startIndex++;
+            // exchange arrayData[currentIndex] with arrayData[startIndex]
+            let temp = arrData[currentIndex];
+            arrData[currentIndex] = arrData[startIndex];
+            arrData[startIndex] = temp;
+          }
+        }
+        // exchange pivot with arrData[startIndex+1] / move pivot to correct position
+        let temp = arrData[startIndex + 1];
+        arrData[startIndex + 1] = arrData[high];
+        arrData[high] = temp;
+        return startIndex + 1;
+      }
+
+      quickSort(0, arrData.length - 1);
+
+      console.log(arrData);
+    </script>
+  </body>
+</html>

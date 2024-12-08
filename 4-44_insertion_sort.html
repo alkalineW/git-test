@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>insertion sort</title>
+  </head>
+  <body>
+    <script>
+      let arr = [7, 3, 5, 2, 8, 12, 10, 9, 1, 6];
+
+      function insertionSort(arr) {
+        let temp;
+        for (let i = 1; i < arr.length; i++) {
+          let leftValue = i - 1;
+          temp = arr[i]; // store the current value
+          while (leftValue >= 0 && arr[leftValue] > temp) {
+            arr[leftValue + 1] = arr[leftValue]; // move left value to right with one position
+            leftValue--;
+          }
+          // insert the temp value to correct position
+          // arr[leftValue] or leftside value will all less than temp(not met while condition)
+          arr[leftValue + 1] = temp;
+        }
+        return arr;
+      }
+
+      console.log(insertionSortFunc(arr));
+      function insertionSortFunc(arr) {
+        let temp;
+        for (let current = 1; current < arr.length; current++) {
+          temp = arr[current];
+          let left = current - 1;
+          while (left >= 0 && arr[left] > arr[current]) {
+            arr[left + 1] = arr[left];
+            left--;
+          }
+          arr[left + 1] = temp;
+        }
+      }
+    </script>
+  </body>
+</html>

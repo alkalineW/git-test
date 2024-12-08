@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>subsequence</title>
+  </head>
+  <body>
+    <script>
+      // use the pointer skill
+      // function isSubsequence(baseString, compareString) {
+      //   const baseArray = baseString.split(""),
+      //     compareArray = compareString.split("");
+
+      //   const lengthOfBase = baseArray.length - 1;
+
+      //   let left = 0,
+      //     basePoint = 0,
+      //     right = compareArray.length - 1;
+
+      //   let result = "";
+
+      //   while (left < right) {
+      //     console.log(
+      //       `Current Base letter:${baseArray[basePoint]} / Current compare letter:${compareArray[left]}`
+      //     );
+
+      //     if (baseArray[basePoint] == compareArray[left]) {
+      //       result += compareArray[left];
+      //       basePoint++;
+      //     }
+      //     left++;
+      //   }
+
+      //   console.log(result);
+      //   if (result == baseString) {
+      //     console.log(`${compareString} is sebsequence of ${baseString}`);
+      //     return true;
+      //   } else {
+      //     console.log(`${compareString} is NOT sebsequence of ${baseString}`);
+      //     return false;
+      //   }
+      // }
+
+      function isSubsequencePractice(compareString, referenceString) {
+        let pointer1 = 0,
+          referenceStart = 0;
+
+        const referenceEnd = referenceString.length - 1;
+
+        // 假設比較的字串為empty string 則不管參照字串為何 都必然是其的子序列
+        if (compareString.length === 0) {
+          console.log(`compareString is empty`);
+          return true;
+        }
+
+        while (referenceStart < referenceEnd) {
+          console.log(
+            `${compareString[pointer1]} / ${referenceString[referenceStart]}`
+          );
+          if (compareString[pointer1] === referenceString[referenceStart]) {
+            pointer1++; // 往右ㄧ格
+          }
+          if (pointer1 >= compareString.length) {
+            return true;
+            // console.log("to end");
+          }
+          referenceStart++;
+        }
+        console.log("not subsequence");
+        return false;
+      }
+
+      // isSubsequencePractice("hello", "hello world");
+      // isSubsequencePractice("book", "brooklyn");
+      // isSubsequencePractice("abc", "a blanket of cat");
+      // isSubsequencePractice("soon", "send me a letter");
+    </script>
+  </body>
+</html>
